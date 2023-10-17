@@ -1,0 +1,20 @@
+{
+    "name": "xjryanse/tour",
+    "description": "tour",
+    "type": "library",
+    "authors": [
+        {
+            "name": "xjryanse",
+            "email": "xjryanse@sina.com"
+        }
+    ],
+    "require": {
+
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "xjryanse\\tour\\": "src/"
+        }
+    }
+}
