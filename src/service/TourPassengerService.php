@@ -20,7 +20,12 @@ class TourPassengerService extends Base implements MainModelInterface {
 
     use \xjryanse\traits\InstTrait;
     use \xjryanse\traits\MainModelTrait;
+    use \xjryanse\traits\MainModelRamTrait;
+    use \xjryanse\traits\MainModelCacheTrait;
+    use \xjryanse\traits\MainModelCheckTrait;
+    use \xjryanse\traits\MainModelGroupTrait;
     use \xjryanse\traits\MainModelQueryTrait;
+
 
     protected static $mainModel;
     protected static $mainModelClass = '\\xjryanse\\tour\\model\\TourPassenger';
@@ -129,15 +134,18 @@ class TourPassengerService extends Base implements MainModelInterface {
     public static function getPassengerArr($orderId, $psgIds, $prize) {
         $passenger = [];
         foreach ($psgIds as $psgId) {
-            $data = UserPassengerService::getInstance($psgId)->get();
-            $tmp = [];
-            $tmp['realname'] = $data['realname'];
-            $tmp['id_no'] = $data['id_no'];
-            $tmp['phone'] = $data['phone'];
-            $tmp['order_id'] = $orderId;
-            $tmp['passenger_id'] = $data['id'];
-            $tmp['prize'] = $prize;
-
+            $data                   = UserPassengerService::getInstance($psgId)->get();
+            $tmp                    = [];
+            $tmp['realname']        = $data['realname'];
+            $tmp['id_no']           = $data['id_no'];
+            $tmp['phone']           = $data['phone'];
+            $tmp['order_id']        = $orderId;
+            $tmp['passenger_id']    = $data['id'];
+            $tmp['prize']           = $prize;
+            // 20240509：买保险
+            if(!$data['id_no']){
+                throw new Exception($tmp['realname'].'无身份证号码，请先完善信息');
+            }
             $passenger[] = $tmp;
         }
         return $passenger;

@@ -15,13 +15,20 @@ class TourTimeService extends Base implements MainModelInterface {
 
     use \xjryanse\traits\InstTrait;
     use \xjryanse\traits\MainModelTrait;
+    use \xjryanse\traits\MainModelRamTrait;
+    use \xjryanse\traits\MainModelCacheTrait;
+    use \xjryanse\traits\MainModelCheckTrait;
+    use \xjryanse\traits\MainModelGroupTrait;
     use \xjryanse\traits\MainModelQueryTrait;
+
 
 // 2022-11-20 TODO 提升性能，新增/修改时需要进行更新
     use \xjryanse\traits\StaticModelTrait;
 
     protected static $mainModel;
     protected static $mainModelClass = '\\xjryanse\\tour\\model\\TourTime';
+
+    use \xjryanse\tour\service\time\PaginateTraits;
 
     /**
      * 20230324
